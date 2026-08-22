@@ -1,4 +1,4 @@
-name: Anomalie — constatée sur un équipement en service
+name: Anomalie - constatée sur un équipement en service
 description: Un défaut observé sur un équipement installé, pas en développement.
 title: "[Terrain] "
 labels: ["terrain"]
@@ -65,7 +65,7 @@ body:
     id: reproduction
     attributes:
       label: Comment le reproduire
-      description: Si ce n'est pas reproductible, le dire — c'est une information en soi.
+      description: Si ce n'est pas reproductible, le dire - c'est une information en soi.
 
   - type: textarea
     id: pieces

@@ -1,4 +1,4 @@
-name: Épique — chantier transverse
+name: Épique - chantier transverse
 description: Un chantier qui traverse plusieurs dépôts et porte une échéance.
 title: "[Épique] "
 labels: ["épique"]
@@ -37,11 +37,11 @@ body:
       label: Confiance dans la date
       description: Ce champ sépare un mur d'un souhait. Le renseigner honnêtement vaut mieux que le renseigner haut.
       options:
-        - Ferme — imposée par un texte réglementaire
-        - Ferme — engagement pris auprès d'un client
-        - Élevée — le chemin est connu et dégagé
-        - Moyenne — le chemin est connu, des inconnues subsistent
-        - Faible — indicative, à revoir
+        - Ferme - imposée par un texte réglementaire
+        - Ferme - engagement pris auprès d'un client
+        - Élevée - le chemin est connu et dégagé
+        - Moyenne - le chemin est connu, des inconnues subsistent
+        - Faible - indicative, à revoir
 
   - type: textarea
     id: depots

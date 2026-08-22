@@ -1,4 +1,4 @@
-name: Conformité — exigence réglementaire ou de sécurité
+name: Conformité - exigence réglementaire ou de sécurité
 description: Une obligation qui vient d'un texte, d'une norme ou d'une politique de sécurité.
 title: "[Conformité] "
 labels: ["conformité"]
@@ -7,7 +7,7 @@ body:
     id: texte
     attributes:
       label: Texte ou norme de référence
-      description: Référence précise — règlement, article, norme, section.
+      description: Référence précise - règlement, article, norme, section.
     validations:
       required: true
 
