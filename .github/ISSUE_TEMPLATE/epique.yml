@@ -1,7 +1,8 @@
 name: Épique - chantier transverse
 description: Un chantier qui traverse plusieurs dépôts et porte une échéance.
 title: "[Épique] "
-labels: ["épique"]
+type: Épique
+projects: ["Sam-Outillage/13"]
 body:
   - type: markdown
     attributes:

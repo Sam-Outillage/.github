@@ -1,7 +1,8 @@
 name: Conformité - exigence réglementaire ou de sécurité
 description: Une obligation qui vient d'un texte, d'une norme ou d'une politique de sécurité.
 title: "[Conformité] "
-labels: ["conformité"]
+type: Conformité
+projects: ["Sam-Outillage/13"]
 body:
   - type: input
     id: texte

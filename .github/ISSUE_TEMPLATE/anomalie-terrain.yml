@@ -2,6 +2,7 @@ name: Anomalie - constatée sur un équipement en service
 description: Un défaut observé sur un équipement installé, pas en développement.
 title: "[Terrain] "
 labels: ["terrain"]
+type: Anomalie
 body:
   - type: markdown
     attributes:

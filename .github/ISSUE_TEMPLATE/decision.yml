@@ -1,7 +1,8 @@
 name: Décision - arbitrage à rendre
 description: Un choix qui bloque du travail en aval tant qu'il n'est pas tranché.
 title: "[Décision] "
-labels: ["décision"]
+type: Décision
+projects: ["Sam-Outillage/13"]
 body:
   - type: markdown
     attributes:
