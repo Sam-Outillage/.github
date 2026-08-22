@@ -1,0 +1,60 @@
+name: Conformité — exigence réglementaire ou de sécurité
+description: Une obligation qui vient d'un texte, d'une norme ou d'une politique de sécurité.
+title: "[Conformité] "
+labels: ["conformité"]
+body:
+  - type: input
+    id: texte
+    attributes:
+      label: Texte ou norme de référence
+      description: Référence précise — règlement, article, norme, section.
+    validations:
+      required: true
+
+  - type: textarea
+    id: exigence
+    attributes:
+      label: Ce que le texte exige
+      description: Reformulé en une obligation concrète, pas cité tel quel.
+    validations:
+      required: true
+
+  - type: textarea
+    id: ecart
+    attributes:
+      label: Où on en est aujourd'hui
+      description: L'écart constaté, et sur quoi ce constat repose.
+    validations:
+      required: true
+
+  - type: input
+    id: echeance
+    attributes:
+      label: Échéance
+      placeholder: AAAA-MM-JJ
+    validations:
+      required: true
+
+  - type: dropdown
+    id: consequence
+    attributes:
+      label: Conséquence si l'échéance est manquée
+      options:
+        - Sanction ou responsabilité juridique
+        - Interdiction de mise sur le marché ou de maintien en service
+        - Perte d'un marché ou d'une certification
+        - Risque de sécurité pour les personnes
+        - Risque pour les données ou les systèmes
+        - À établir
+
+  - type: input
+    id: porteur
+    attributes:
+      label: Qui porte le sujet
+      description: Une exigence sans porteur nommé n'avance pas.
+
+  - type: textarea
+    id: preuve
+    attributes:
+      label: Preuve à produire
+      description: Ce qu'il faudra pouvoir montrer en cas de contrôle ou d'audit.

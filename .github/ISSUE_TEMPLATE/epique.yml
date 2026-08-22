@@ -1,0 +1,68 @@
+name: Épique — chantier transverse
+description: Un chantier qui traverse plusieurs dépôts et porte une échéance.
+title: "[Épique] "
+labels: ["épique"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Une épique décrit un résultat, pas une tâche. Le travail réel vit dans
+        des sous-issues, réparties dans les dépôts concernés.
+
+  - type: textarea
+    id: resultat
+    attributes:
+      label: Ce qu'on veut obtenir
+      description: Une ou deux phrases, du point de vue de qui s'en servira. Pas la solution technique.
+    validations:
+      required: true
+
+  - type: textarea
+    id: fini
+    attributes:
+      label: Comment on saura que c'est fait
+      description: Un constat observable. « La fonctionnalité est développée » n'en est pas un.
+    validations:
+      required: true
+
+  - type: input
+    id: echeance
+    attributes:
+      label: Échéance visée
+      placeholder: AAAA-MM-JJ, ou un trimestre
+
+  - type: dropdown
+    id: confiance
+    attributes:
+      label: Confiance dans la date
+      description: Ce champ sépare un mur d'un souhait. Le renseigner honnêtement vaut mieux que le renseigner haut.
+      options:
+        - Ferme — imposée par un texte réglementaire
+        - Ferme — engagement pris auprès d'un client
+        - Élevée — le chemin est connu et dégagé
+        - Moyenne — le chemin est connu, des inconnues subsistent
+        - Faible — indicative, à revoir
+
+  - type: textarea
+    id: depots
+    attributes:
+      label: Dépôts concernés
+      description: Un par ligne. S'il n'y en a qu'un, ce n'est probablement pas une épique.
+
+  - type: dropdown
+    id: dependance
+    attributes:
+      label: Ce qui peut bloquer
+      options:
+        - Rien d'identifié
+        - Une décision à prendre
+        - Une autre équipe
+        - Un fournisseur ou du matériel
+        - Un client
+        - Un avis juridique, réglementaire ou social
+
+  - type: textarea
+    id: hors-perimetre
+    attributes:
+      label: Ce qui n'est pas dans le périmètre
+      description: Ce qu'on pourrait croire inclus et qui ne l'est pas. Évite la moitié des malentendus.

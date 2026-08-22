@@ -1,0 +1,63 @@
+name: Décision — arbitrage à rendre
+description: Un choix qui bloque du travail en aval tant qu'il n'est pas tranché.
+title: "[Décision] "
+labels: ["décision"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Une décision ouverte coûte plus cher qu'une décision imparfaite. Ce
+        formulaire sert à la rendre visible, pas à la documenter après coup.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: La question, en une phrase
+      description: Formulée comme une question, avec un point d'interrogation.
+    validations:
+      required: true
+
+  - type: textarea
+    id: bloque
+    attributes:
+      label: Ce qui est bloqué tant qu'elle n'est pas tranchée
+      description: Si rien n'est bloqué, ce n'est pas une décision mais une préférence.
+    validations:
+      required: true
+
+  - type: textarea
+    id: options
+    attributes:
+      label: Les options, et ce que chacune coûte
+      description: Une par ligne, avec sa contrepartie. Une option sans inconvénient est une option mal instruite.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: reversibilite
+    attributes:
+      label: Réversibilité
+      description: Détermine le soin à mettre dans l'instruction, et le droit de se tromper.
+      options:
+        - Réversible — on peut changer d'avis sans coût notable
+        - Coûteux à défaire — possible, mais il faudra le payer
+        - Irréversible en pratique — se propage là où on ne pourra plus le reprendre
+    validations:
+      required: true
+
+  - type: input
+    id: qui
+    attributes:
+      label: Qui tranche
+
+  - type: input
+    id: quand
+    attributes:
+      label: Avant quand
+      placeholder: AAAA-MM-JJ, ou l'événement qui force la décision
+
+  - type: textarea
+    id: connu
+    attributes:
+      label: Ce qu'on sait déjà
+      description: Mesures, relevés, précédents. Distinguer ce qui est constaté de ce qui est supposé.

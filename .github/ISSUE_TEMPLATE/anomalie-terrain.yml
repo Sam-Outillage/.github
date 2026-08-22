@@ -1,0 +1,74 @@
+name: Anomalie — constatée sur un équipement en service
+description: Un défaut observé sur un équipement installé, pas en développement.
+title: "[Terrain] "
+labels: ["terrain"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Décrire ce qui a été **observé**, avant toute hypothèse sur la cause.
+        Une hypothèse posée trop tôt oriente l'enquête et fait perdre du temps.
+
+  - type: textarea
+    id: constate
+    attributes:
+      label: Ce qui s'est passé
+      description: Les faits, dans l'ordre où ils se sont présentés.
+    validations:
+      required: true
+
+  - type: textarea
+    id: attendu
+    attributes:
+      label: Ce qu'on attendait à la place
+    validations:
+      required: true
+
+  - type: input
+    id: quand
+    attributes:
+      label: Quand
+      placeholder: AAAA-MM-JJ, avec l'heure si elle est connue
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version du logiciel
+      description: Si elle est inconnue, l'écrire plutôt que de deviner.
+
+  - type: dropdown
+    id: portee
+    attributes:
+      label: Portée constatée
+      options:
+        - Un seul équipement
+        - Plusieurs équipements d'un même site
+        - Plusieurs sites
+        - Inconnue à ce stade
+    validations:
+      required: true
+
+  - type: dropdown
+    id: utilisable
+    attributes:
+      label: L'équipement est-il utilisable ?
+      options:
+        - Oui, normalement
+        - Oui, en mode dégradé
+        - Non
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Comment le reproduire
+      description: Si ce n'est pas reproductible, le dire — c'est une information en soi.
+
+  - type: textarea
+    id: pieces
+    attributes:
+      label: Journaux, photos, relevés
+      description: Coller le texte plutôt qu'une capture d'écran quand c'est possible.
