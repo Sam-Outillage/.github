@@ -1,0 +1,211 @@
+name: Sync Kiwi TCMS
+
+on:
+  workflow_call:
+    secrets:
+      KIWI_URL:
+        required: true
+      KIWI_USERNAME:
+        required: true
+      KIWI_PASSWORD:
+        required: true
+
+jobs:
+  sync:
+    name: Sync Product / Version / Build
+    runs-on: [self-hosted, linux, X64]
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Prepare metadata
+        shell: bash
+        run: |
+          if [ "${GITHUB_REF_TYPE}" != "tag" ]; then
+            echo "This workflow must be called from a Git tag."
+            exit 1
+          fi
+
+          PRODUCT="${GITHUB_REPOSITORY#*/}"
+          VERSION="${GITHUB_REF_NAME#v}"
+          BUILD="${GITHUB_SHA::12}"
+
+          echo "TCMS_PRODUCT=$PRODUCT" >> "$GITHUB_ENV"
+          echo "TCMS_VERSION=$VERSION" >> "$GITHUB_ENV"
+          echo "TCMS_BUILD=$BUILD" >> "$GITHUB_ENV"
+
+          echo "Repository : $GITHUB_REPOSITORY"
+          echo "Product    : $PRODUCT"
+          echo "Version    : $VERSION"
+          echo "Build      : $BUILD"
+
+      - name: Install tcms-api
+        shell: bash
+        run: |
+          python3 -m venv "$RUNNER_TEMP/kiwi-sync-venv"
+          "$RUNNER_TEMP/kiwi-sync-venv/bin/python" -m pip install --upgrade pip
+          "$RUNNER_TEMP/kiwi-sync-venv/bin/pip" install "tcms-api==15.0"
+
+      - name: Sync with Kiwi TCMS
+        env:
+          KIWI_URL: ${{ secrets.KIWI_URL }}
+          KIWI_USERNAME: ${{ secrets.KIWI_USERNAME }}
+          KIWI_PASSWORD: ${{ secrets.KIWI_PASSWORD }}
+        shell: bash
+        run: |
+          "$RUNNER_TEMP/kiwi-sync-venv/bin/python" <<'PY'
+          import os
+
+          from tcms_api import TCMS
+
+
+          kiwi_url = os.environ["KIWI_URL"]
+          username = os.environ["KIWI_USERNAME"]
+          password = os.environ["KIWI_PASSWORD"]
+
+          product_name = os.environ["TCMS_PRODUCT"]
+          version_name = os.environ["TCMS_VERSION"]
+          build_name = os.environ["TCMS_BUILD"]
+
+          rpc = TCMS(
+              kiwi_url,
+              username,
+              password,
+          ).exec
+
+
+          #
+          # Check connection
+          #
+          kiwi_version = rpc.KiwiTCMS.version()
+
+          print(f"Connected to Kiwi TCMS {kiwi_version}")
+
+
+          #
+          # Classification
+          #
+          classification_name = "SAM Applications"
+
+          classifications = rpc.Classification.filter({
+              "name": classification_name,
+          })
+
+          if classifications:
+              classification = classifications[0]
+
+              print(
+                  f"Reuse classification: "
+                  f"{classification_name} "
+                  f"(id={classification['id']})"
+              )
+          else:
+              classification = rpc.Classification.create({
+                  "name": classification_name,
+              })
+
+              print(
+                  f"Created classification: "
+                  f"{classification_name} "
+                  f"(id={classification['id']})"
+              )
+
+
+          #
+          # Product
+          #
+          products = rpc.Product.filter({
+              "name": product_name,
+          })
+
+          if products:
+              product = products[0]
+
+              print(
+                  f"Reuse product: "
+                  f"{product_name} "
+                  f"(id={product['id']})"
+              )
+          else:
+              product = rpc.Product.create({
+                  "name": product_name,
+                  "description": (
+                      f"Automatically synchronized from GitHub repository "
+                      f"{os.environ.get('GITHUB_REPOSITORY', product_name)}"
+                  ),
+                  "classification": classification["id"],
+              })
+
+              print(
+                  f"Created product: "
+                  f"{product_name} "
+                  f"(id={product['id']})"
+              )
+
+
+          #
+          # Version
+          #
+          versions = rpc.Version.filter({
+              "product": product["id"],
+              "value": version_name,
+          })
+
+          if versions:
+              version = versions[0]
+
+              print(
+                  f"Reuse version: "
+                  f"{version_name} "
+                  f"(id={version['id']})"
+              )
+          else:
+              version = rpc.Version.create({
+                  "product": product["id"],
+                  "value": version_name,
+              })
+
+              print(
+                  f"Created version: "
+                  f"{version_name} "
+                  f"(id={version['id']})"
+              )
+
+
+          #
+          # Build
+          #
+          builds = rpc.Build.filter({
+              "version": version["id"],
+              "name": build_name,
+          })
+
+          if builds:
+              build = builds[0]
+
+              print(
+                  f"Reuse build: "
+                  f"{build_name} "
+                  f"(id={build['id']})"
+              )
+          else:
+              build = rpc.Build.create({
+                  "version": version["id"],
+                  "name": build_name,
+                  "is_active": True,
+              })
+
+              print(
+                  f"Created build: "
+                  f"{build_name} "
+                  f"(id={build['id']})"
+              )
+
+
+          print("")
+          print("Kiwi TCMS synchronized successfully")
+          print(f"Product : {product_name}")
+          print(f"Version : {version_name}")
+          print(f"Build   : {build_name}")
+          PY
