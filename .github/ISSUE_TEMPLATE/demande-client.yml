@@ -1,0 +1,89 @@
+name: Demande client - évolution souhaitée
+description: Une amélioration demandée par un client ou un site, sur STS ou sur la borne.
+title: "[Client] "
+labels: ["client"]
+type: Fonctionnalité
+projects: ["Sam-Outillage/13"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Décrire le **besoin**, pas la solution. « Ajouter un bouton » ne dit pas
+        pourquoi l'utilisateur en a besoin, et la bonne réponse n'est pas toujours
+        un bouton.
+
+        Une demande incomplète revient à son auteur avant d'être chiffrée.
+
+  - type: input
+    id: client
+    attributes:
+      label: Client ou site demandeur
+      description: Le nom du client, et le site s'il y en a plusieurs. Si plusieurs clients le demandent, les citer tous.
+      placeholder: SNCF - Technicentre de Rennes
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ou
+    attributes:
+      label: Où ça se passe
+      options:
+        - Sur STS (le site web)
+        - Sur la borne (STM)
+        - Les deux
+        - Je ne sais pas
+    validations:
+      required: true
+
+  - type: textarea
+    id: probleme
+    attributes:
+      label: Le problème, du point de vue de l'utilisateur
+      description: Qui est gêné (opérateur, magasinier, responsable, acheteur...), à quel moment, et ce que ça lui coûte.
+      placeholder: |
+        Le magasinier ne sait pas qu'une commande Click & Collect est arrivée.
+        L'article reste dans la case plusieurs jours et bloque la case.
+    validations:
+      required: true
+
+  - type: textarea
+    id: aujourdhui
+    attributes:
+      label: Comment on fait aujourd'hui
+      description: Le contournement actuel, ou « rien, c'est impossible ». Sert à mesurer ce que la demande change vraiment.
+    validations:
+      required: true
+
+  - type: textarea
+    id: attendu
+    attributes:
+      label: Ce qui serait attendu
+      description: Le résultat souhaité, avec un exemple concret. Pour un rapport, les colonnes attendues ; pour un écran, ce qu'on y voit.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: enjeu
+    attributes:
+      label: Enjeu
+      options:
+        - Bloque une vente ou un renouvellement
+        - Demandé par plusieurs clients
+        - Engagement déjà pris auprès du client
+        - Écart avec la concurrence
+        - Confort d'utilisation
+    validations:
+      required: true
+
+  - type: input
+    id: echeance
+    attributes:
+      label: Échéance côté client
+      description: Seulement si le client en a donné une. Préciser si elle est ferme.
+      placeholder: AAAA-MM-JJ, ferme ou souhaitée
+
+  - type: textarea
+    id: pieces
+    attributes:
+      label: Captures, exemples, échanges
+      description: Capture de l'écran concerné, exemple d'export, extrait du mail du client.
