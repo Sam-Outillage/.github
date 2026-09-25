@@ -1,0 +1,11 @@
+name: Tâche - travail de développement
+description: Un travail technique identifié par l'équipe, qui n'est ni une demande client ni une anomalie terrain.
+type: Tâche
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Le contexte, ce qu'il faut faire, et comment on saura que c'est fait.
+    validations:
+      required: true
